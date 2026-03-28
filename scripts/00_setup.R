@@ -1,4 +1,4 @@
-## 0: Setup
+## 00: Setup
 ## Script for setting up packages and dependencies for the analysis
 
 # --- Packages -----------------------------------------------------------------
