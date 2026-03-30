@@ -35,3 +35,11 @@ combined_data %>% filter(gene == names(top_genes)[1]) %>%
   labs(y = "normalised count", 
        title = "Normalised Counts against Age with Line of Best Fit", 
        colour = "diabetes type")
+
+# Generate heatmap to visual gene expression of the top 5 most variable genes
+combined_data %>% filter(gene %in% names(top_genes)) %>%
+  ggplot(aes(sample, gene, fill = normalised_count)) +
+  geom_tile() + theme_light() +
+  scale_x_discrete(guide = guide_axis(angle = 90)) +
+  labs(title = "Gene Expression Heatmap", fill = "normalised count") + 
+  scale_fill_gradient(low="white", high = "#0ABFBC")
