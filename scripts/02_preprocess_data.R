@@ -6,6 +6,7 @@ metadata_preprocess <- as.data.frame(metadata) %>%
   rownames_to_column("sample") %>%
   rename(age = `age:ch1`, diabetes_type = `diabetes type:ch1`, 
          gender = `gender:ch1`) %>%
+  mutate(age = as.integer(gsub("yrs", "", age))) %>%
   select(sample, age, diabetes_type, gender)
 
 # show data processing information
@@ -18,11 +19,15 @@ summary(expr_matrix)
 table(rowSums(is.na(expr_matrix)))
 
 # remove genes that have a low total expression
-mask <- rowSums(expr_matrix, na.rm = TRUE) > 1
+mask <- rowSums(expr_matrix, na.rm = TRUE) > 0.5
 expr_matrix_reduced <- expr_matrix[mask,]
 
 # check how many NAs are within each row of reduced
 table(rowSums(is.na(expr_matrix_reduced)))
+
+# drop rows that have any NA values
+expr_matrix_reduced <- as.data.frame(expr_matrix_reduced) %>% drop_na()
+dim(expr_matrix_reduced)
 
 # pivot expression matrix to longer form
 expr_matrix_long <- as.data.frame(expr_matrix_reduced) %>%
