@@ -32,6 +32,26 @@ expr_pca$x %>% as.data.frame() %>%
   rownames_to_column("sample") %>%
   left_join(metadata_preprocess, by="sample") %>%
   ggplot(aes(PC1, PC2, colour = diabetes_type)) + 
-  geom_point() + theme_light() + 
+  geom_point(size = 2) + theme_light() + 
   labs(title = "First Two Principal Components for Diabetes Gene Expression", 
        colour = "diabetes type")
+
+# --- t-SNE --------------------------------------------------------------------
+
+# Set seed for reproducibility
+set.seed(1000)
+
+# Apply t-SNE to the gene expression matrix, set to 2 dimensions
+expr_tsne <- Rtsne(t(expr_matrix_reduced), dim = 2, perplexity = 3)
+tsne_comp <- expr_tsne$Y
+colnames(tsne_comp) <- c("X1", "X2")
+rownames(tsne_comp) <- colnames(expr_matrix_reduced)
+
+# Plot t-SNE components
+tsne_comp %>% as.data.frame() %>% 
+  rownames_to_column("sample") %>% 
+  left_join(metadata_preprocess, by="sample") %>% 
+  ggplot(aes(x = X1, y = X2, colour = diabetes_type)) + 
+  geom_point(size = 2) + 
+  theme_minimal() + 
+  labs(title = "t-SNE Plot for Diabetes Gene Expression")

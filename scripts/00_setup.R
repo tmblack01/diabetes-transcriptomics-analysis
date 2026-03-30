@@ -5,6 +5,7 @@
 
 library(tidyverse)
 library(GEOquery)
+library(Rtsne)
 
 # --- Settings -----------------------------------------------------------------
 
