@@ -13,11 +13,25 @@ combined_data %>% filter(gene %in% names(top_genes)) %>%
     geom_boxplot() + theme_light() + guides(fill = "none") +
   scale_fill_viridis_d(begin = 0.4) +
   labs(y = "normalised count", 
-      title = "Distribution of Normalised Count for Most Variable Genes")
+      title = "Distribution of Normalised Counts for Most Variable Genes")
 
 combined_data %>% filter(gene %in% names(top_genes)) %>%
   ggplot(aes(gene, normalised_count, fill = diabetes_type)) +
   geom_boxplot() + theme_light() +
   labs(y = "normalised count", 
-       title = "Distribution of Normalised Count for Most Variable Genes, Group by Diabetes Type", 
+       title = "Distribution of Normalised Counts for Most Variable Genes, Group by Diabetes Type", 
        fill = "diabetes type")
+
+# Generate scatter plot for normalised counts against age
+combined_data %>% filter(gene == names(top_genes)[1]) %>%
+  ggplot(aes(age, normalised_count)) +
+  geom_point() + geom_smooth(method = "lm") + theme_light() +
+  labs(y = "normalised count", 
+       title = "Normalised Counts against Age with Line of Best Fit")
+
+combined_data %>% filter(gene == names(top_genes)[1]) %>%
+  ggplot(aes(age, normalised_count, colour = diabetes_type)) +
+  geom_point()+ geom_smooth(method = "lm") + theme_light() +
+  labs(y = "normalised count", 
+       title = "Normalised Counts against Age with Line of Best Fit", 
+       colour = "diabetes type")
