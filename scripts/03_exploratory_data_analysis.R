@@ -8,38 +8,49 @@ top_genes <- expr_matrix_reduced %>% apply(1, sd) %>%
   head(5)
 
 # Generate box plots of normalised counts against the most variable genes
-combined_data %>% filter(gene %in% names(top_genes)) %>%
+p1 <- combined_data %>% filter(gene %in% names(top_genes)) %>%
   ggplot(aes(gene, normalised_count, fill = gene)) +
     geom_boxplot() + theme_light() + guides(fill = "none") +
   scale_fill_viridis_d(begin = 0.4) +
   labs(y = "normalised count", 
       title = "Distribution of Normalised Counts for Most Variable Genes")
 
-combined_data %>% filter(gene %in% names(top_genes)) %>%
+ggsave("output/03_boxplot_counts_against_gene.png", plot = p1)
+
+p2 <- combined_data %>% filter(gene %in% names(top_genes)) %>%
   ggplot(aes(gene, normalised_count, fill = diabetes_type)) +
   geom_boxplot() + theme_light() +
   labs(y = "normalised count", 
        title = "Distribution of Normalised Counts for Most Variable Genes, Group by Diabetes Type", 
        fill = "diabetes type")
 
+ggsave("output/03_boxplot_counts_against_gene_groupby_type.png", plot = p2)
+
 # Generate scatter plot for normalised counts against age
-combined_data %>% filter(gene == names(top_genes)[1]) %>%
+p3 <- combined_data %>% filter(gene == names(top_genes)[1]) %>%
   ggplot(aes(age, normalised_count)) +
   geom_point() + geom_smooth(method = "lm") + theme_light() +
   labs(y = "normalised count", 
        title = "Normalised Counts against Age with Line of Best Fit")
 
-combined_data %>% filter(gene == names(top_genes)[1]) %>%
+ggsave("output/03_scatterplot_counts_against_age.png", plot = p3)
+
+p4 <- combined_data %>% filter(gene == names(top_genes)[1]) %>%
   ggplot(aes(age, normalised_count, colour = diabetes_type)) +
   geom_point()+ geom_smooth(method = "lm") + theme_light() +
   labs(y = "normalised count", 
        title = "Normalised Counts against Age with Line of Best Fit", 
        colour = "diabetes type")
 
+ggsave("output/03_scatterplot_counts_against_age_groupby_type.png", plot = p4)
+
 # Generate heatmap to visual gene expression of the top 5 most variable genes
-combined_data %>% filter(gene %in% names(top_genes)) %>%
+p5 <- combined_data %>% filter(gene %in% names(top_genes)) %>%
   ggplot(aes(sample, gene, fill = normalised_count)) +
-  geom_tile() + theme_light() +
+  geom_tile(colour="black", linewidth=0.3) + theme_light() +
   scale_x_discrete(guide = guide_axis(angle = 90)) +
-  labs(title = "Gene Expression Heatmap", fill = "normalised count") + 
+  labs(title = "Gene Expression Heatmap for Top 5 Most Variable Genes", 
+       fill = "normalised count") + 
   scale_fill_gradient(low="white", high = "#0ABFBC")
+
+ggsave("output/03_gene_expression_heatmap.png", plot = p5)

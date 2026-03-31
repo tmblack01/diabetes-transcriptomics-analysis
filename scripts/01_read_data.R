@@ -9,7 +9,7 @@ geo_idx <- 'GSE44313'
 gse <- getGEO(geo_idx, GSEMatrix = TRUE, AnnotGPL = TRUE)
 gse_data <- gse[[1]]
 
-# run this command to check that expression matrix is not empty
+# Run this command to check that expression matrix is not empty
 # show(gse)
 
 # Extract expression matrix and metadata
