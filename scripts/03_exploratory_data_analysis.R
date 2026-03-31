@@ -7,6 +7,8 @@ top_genes <- expr_matrix_reduced %>% apply(1, sd) %>%
   sort(decreasing = TRUE) %>% 
   head(5)
 
+# --- Box plot -----------------------------------------------------------------
+
 # Generate box plots of normalised counts against the most variable genes
 p1 <- combined_data %>% filter(gene %in% names(top_genes)) %>%
   ggplot(aes(gene, normalised_count, fill = gene)) +
@@ -26,6 +28,8 @@ p2 <- combined_data %>% filter(gene %in% names(top_genes)) %>%
 
 ggsave("output/03_boxplot_counts_against_gene_groupby_type.png", plot = p2)
 
+# --- Scatter plot -------------------------------------------------------------
+
 # Generate scatter plot for normalised counts against age
 p3 <- combined_data %>% filter(gene == names(top_genes)[1]) %>%
   ggplot(aes(age, normalised_count)) +
@@ -43,6 +47,8 @@ p4 <- combined_data %>% filter(gene == names(top_genes)[1]) %>%
        colour = "diabetes type")
 
 ggsave("output/03_scatterplot_counts_against_age_groupby_type.png", plot = p4)
+
+# --- Heatmap ------------------------------------------------------------------
 
 # Generate heatmap to visual gene expression of the top 5 most variable genes
 p5 <- combined_data %>% filter(gene %in% names(top_genes)) %>%

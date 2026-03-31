@@ -1,6 +1,8 @@
 ## Preprocess Data
 ## Clean and transform expression matrix and metadata for downstream analysis
 
+# --- Preprocess metadata ------------------------------------------------------
+
 # Select columns from metadata that will be used for further analysis
 metadata_preprocess <- as.data.frame(metadata) %>%
   rownames_to_column("sample") %>%
@@ -8,6 +10,8 @@ metadata_preprocess <- as.data.frame(metadata) %>%
          gender = `gender:ch1`) %>%
   mutate(age = as.integer(gsub("yrs", "", age))) %>%
   select(sample, age, diabetes_type, gender)
+
+# --- Preprocess expression matrix ---------------------------------------------
 
 # Show data processing information
 metadata$data_processing[1]
