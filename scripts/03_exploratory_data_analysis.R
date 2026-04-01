@@ -17,7 +17,8 @@ p1 <- combined_data %>% filter(gene %in% names(top_genes)) %>%
   labs(y = "normalised count", 
       title = "Distribution of Normalised Counts for Most Variable Genes")
 
-ggsave("output/03_boxplot_counts_against_gene.png", plot = p1)
+ggsave("output/03_boxplot_counts_against_gene.png", plot = p1, width = 7, 
+       height = 5)
 
 p2 <- combined_data %>% filter(gene %in% names(top_genes)) %>%
   ggplot(aes(gene, normalised_count, fill = diabetes_type)) +
@@ -26,7 +27,8 @@ p2 <- combined_data %>% filter(gene %in% names(top_genes)) %>%
        title = "Distribution of Normalised Counts for Most Variable Genes, Group by Diabetes Type", 
        fill = "diabetes type")
 
-ggsave("output/03_boxplot_counts_against_gene_groupby_type.png", plot = p2)
+ggsave("output/03_boxplot_counts_against_gene_groupby_type.png", plot = p2, 
+       width = 8, height = 5)
 
 # --- Scatter plot -------------------------------------------------------------
 
@@ -37,7 +39,8 @@ p3 <- combined_data %>% filter(gene == names(top_genes)[1]) %>%
   labs(y = "normalised count", 
        title = "Normalised Counts against Age with Line of Best Fit")
 
-ggsave("output/03_scatterplot_counts_against_age.png", plot = p3)
+ggsave("output/03_scatterplot_counts_against_age.png", plot = p3, width = 7, 
+       height = 5)
 
 p4 <- combined_data %>% filter(gene == names(top_genes)[1]) %>%
   ggplot(aes(age, normalised_count, colour = diabetes_type)) +
@@ -46,7 +49,8 @@ p4 <- combined_data %>% filter(gene == names(top_genes)[1]) %>%
        title = "Normalised Counts against Age with Line of Best Fit", 
        colour = "diabetes type")
 
-ggsave("output/03_scatterplot_counts_against_age_groupby_type.png", plot = p4)
+ggsave("output/03_scatterplot_counts_against_age_groupby_type.png", plot = p4, 
+       width = 7, height = 5)
 
 # --- Heatmap ------------------------------------------------------------------
 
@@ -59,4 +63,5 @@ p5 <- combined_data %>% filter(gene %in% names(top_genes)) %>%
        fill = "normalised count") + 
   scale_fill_gradient(low="white", high = "#0ABFBC")
 
-ggsave("output/03_gene_expression_heatmap.png", plot = p5)
+ggsave("output/03_gene_expression_heatmap.png", plot = p5, width = 7, 
+       height = 5)
