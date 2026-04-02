@@ -3,11 +3,13 @@
 
 # --- Packages -----------------------------------------------------------------
 
+## ---- packages
 library(tidyverse)
 library(GEOquery)
 library(Rtsne)
 
 # --- Settings -----------------------------------------------------------------
 
+## ---- settings
 # Use standard decimal notation
 options(scipen = 999)

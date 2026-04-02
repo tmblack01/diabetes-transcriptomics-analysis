@@ -4,6 +4,7 @@
 
 # --- PCA ----------------------------------------------------------------------
 
+## ---- perform-pca
 # perform PCA on the (reduced) expresion matrix
 expr_pca <- prcomp(t(expr_matrix_reduced))
 
@@ -11,6 +12,7 @@ pca_var <- tibble(pca_eigenvalues = expr_pca$sdev^2,
                   num_comp = 1:length(pca_eigenvalues)) %>%
   mutate(var_explained = cumsum(pca_eigenvalues) / sum(pca_eigenvalues) * 100)
 
+## ---- scree-plot
 # Generate an scree plot
 p6 <- pca_var %>%
 ggplot(aes(num_comp, pca_eigenvalues)) +
@@ -18,9 +20,11 @@ ggplot(aes(num_comp, pca_eigenvalues)) +
   scale_x_continuous(n.breaks = 10) +
   labs(x = "principal component", y = "variance", 
        title = "PCA Scree Plot")
+p6
 
 ggsave("figures/04_pca_scree_plot.png", plot = p6, width = 7, height = 5)
 
+## ---- var-explained
 # Generate a plot showing (cumulative) variance explained
 p7 <- pca_var %>%
   ggplot(aes(num_comp, var_explained)) +
@@ -28,10 +32,12 @@ p7 <- pca_var %>%
   scale_x_continuous(n.breaks = 10) + scale_y_continuous(n.breaks = 8) +
   labs(x = "principal component", y = "variance", 
        title = "PCA Cumulative Variance Explained Plot")
+p7
 
 ggsave("figures/04_pca_variance_explained_plot.png", plot = p7, width = 7, 
        height = 5)
 
+## ---- scatterplot-pca
 # Generate a scatter plot for the first two principal components
 p8 <- expr_pca$x %>% as.data.frame() %>%
   rownames_to_column("sample") %>%
@@ -40,11 +46,13 @@ p8 <- expr_pca$x %>% as.data.frame() %>%
   geom_point(size = 2) + theme_light() + 
   labs(title = "First Two PCA Components for Diabetes Gene Expression", 
        colour = "diabetes type")
+p8
 
 ggsave("figures/04_pca_scatter_plot.png", plot = p8, width = 7, height = 5)
 
 # --- t-SNE --------------------------------------------------------------------
 
+## ---- perform-tSNE
 # Set seed for reproducibility
 set.seed(1000)
 
@@ -54,6 +62,7 @@ tsne_comp <- expr_tsne$Y
 colnames(tsne_comp) <- c("X1", "X2")
 rownames(tsne_comp) <- colnames(expr_matrix_reduced)
 
+## ---- scatterplot-tsne
 # Plot t-SNE components
 p9 <- tsne_comp %>% as.data.frame() %>% 
   rownames_to_column("sample") %>% 
@@ -63,5 +72,6 @@ p9 <- tsne_comp %>% as.data.frame() %>%
   theme_light() + 
   labs(title = "First Two t-SNE Components for Diabetes Gene Expression", 
        colour = "diabetes type", x = "first component", y = "second component")
+p9
 
 ggsave("figures/04_tsne_scatter_plot.png", plot = p9, width = 7, height = 5)

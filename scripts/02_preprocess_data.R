@@ -3,6 +3,7 @@
 
 # --- Preprocess metadata ------------------------------------------------------
 
+## ---- preprocess-meta
 # Select columns from metadata that will be used for further analysis
 metadata_preprocess <- as.data.frame(metadata) %>%
   rownames_to_column("sample") %>%
@@ -16,23 +17,21 @@ metadata_preprocess <- as.data.frame(metadata) %>%
 # Show data processing information
 metadata$data_processing[1]
 
-# Look at the summary statistics of this expression matrix
+## ---- summary-expression
 summary(expr_matrix)
 
-# Check how many NAs are within each row of expression matrix
-table(rowSums(is.na(expr_matrix)))
-
-# Remove genes that have a low total expression
+## ---- remove-low-expression
 mask <- rowSums(expr_matrix, na.rm = TRUE) > 0.5
 expr_matrix_reduced <- expr_matrix[mask,]
 
-# Check how many NAs are within each row of reduced
-table(rowSums(is.na(expr_matrix_reduced)))
+## ---- check-na
+table(rowSums(is.na(expr_matrix)))
 
-# Drop rows that have any NA values
+## ---- drop-na
 expr_matrix_reduced <- as.data.frame(expr_matrix_reduced) %>% drop_na()
 dim(expr_matrix_reduced)
 
+## ---- pivot-longer
 # Pivot expression matrix to longer form
 expr_matrix_long <- as.data.frame(expr_matrix_reduced) %>%
   rownames_to_column("gene") %>%
@@ -40,6 +39,7 @@ expr_matrix_long <- as.data.frame(expr_matrix_reduced) %>%
                names_to = "sample",
                values_to = "normalised_count")
 
+## ---- combine-expression-meta
 # Combine expression matrix (in long format) with metadata
 combined_data <- expr_matrix_long %>%
   left_join(metadata_preprocess, by="sample")
