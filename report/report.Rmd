@@ -1,0 +1,21 @@
+---
+title: "Transcriptomic Data Analysis on Diabetes Dataset"
+author: "Thomas Black"
+output:
+  pdf_document:
+    number_sections: yes
+urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+opts_chunk$set(warning = FALSE, message = FALSE, cache = FALSE, comment = "#>")
+read_chunk("./scripts/00_setup.R")
+read_chunk("./scripts/01_read_data.R")
+read_chunk("./scripts/02_preprocess_data.R")
+read_chunk("./scripts/03_exploratory_data_analysis.R")
+read_chunk("./scripts/04_dimensionality_reduction.R")
+```
+
+
+
