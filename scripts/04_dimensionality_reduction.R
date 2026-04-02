@@ -19,7 +19,7 @@ ggplot(aes(num_comp, pca_eigenvalues)) +
   labs(x = "principal component", y = "variance", 
        title = "PCA Scree Plot")
 
-ggsave("output/04_pca_scree_plot.png", plot = p6, width = 7, height = 5)
+ggsave("figures/04_pca_scree_plot.png", plot = p6, width = 7, height = 5)
 
 # Generate a plot showing (cumulative) variance explained
 p7 <- pca_var %>%
@@ -29,7 +29,7 @@ p7 <- pca_var %>%
   labs(x = "principal component", y = "variance", 
        title = "PCA Cumulative Variance Explained Plot")
 
-ggsave("output/04_pca_variance_explained_plot.png", plot = p7, width = 7, 
+ggsave("figures/04_pca_variance_explained_plot.png", plot = p7, width = 7, 
        height = 5)
 
 # Generate a scatter plot for the first two principal components
@@ -41,7 +41,7 @@ p8 <- expr_pca$x %>% as.data.frame() %>%
   labs(title = "First Two PCA Components for Diabetes Gene Expression", 
        colour = "diabetes type")
 
-ggsave("output/04_pca_scatter_plot.png", plot = p8, width = 7, height = 5)
+ggsave("figures/04_pca_scatter_plot.png", plot = p8, width = 7, height = 5)
 
 # --- t-SNE --------------------------------------------------------------------
 
@@ -64,4 +64,4 @@ p9 <- tsne_comp %>% as.data.frame() %>%
   labs(title = "First Two t-SNE Components for Diabetes Gene Expression", 
        colour = "diabetes type", x = "first component", y = "second component")
 
-ggsave("output/04_tsne_scatter_plot.png", plot = p9, width = 7, height = 5)
+ggsave("figures/04_tsne_scatter_plot.png", plot = p9, width = 7, height = 5)

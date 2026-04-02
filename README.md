@@ -1,6 +1,6 @@
 # Transcriptomic Data Analysis using Diabetes Dataset
 
-![](./output/03_boxplot_counts_against_gene_groupby_type.png)
+![](./figures/03_boxplot_counts_against_gene_groupby_type.png)
 
 ## Introduction
 
