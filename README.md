@@ -1,10 +1,10 @@
-# Transcriptomic Data Analysis using Diabetes Dataset
+# Transcriptomic Data Analysis on Diabetes Dataset
 
 ![](./figures/03_boxplot_counts_against_gene_groupby_type.png)
 
 ## Introduction
 
-The purpose of this repository is to perform a transcriptomics data analysis using the dataset from [Gene Expression Fulminant Type 1 Diabetes vs Classical Type 1A Diabetes](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE44313) from the Gene Expression Omnibus (GEO). The dataset contains 10 samples and 41,000 genes. The goal of this analysis is to find any patterns or clusters and identify any features that may influence the observations.
+The purpose of this repository is to perform a transcriptomic data analysis on the dataset from [Gene Expression Fulminant Type 1 Diabetes vs Classical Type 1A Diabetes](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE44313) from the Gene Expression Omnibus (GEO). The dataset contains 10 samples and 41,000 genes. The goal of this analysis is to find any patterns or clusters and identify any features that may influence the observations.
 
 ## How to run code
 
