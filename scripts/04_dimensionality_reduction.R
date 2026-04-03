@@ -21,6 +21,7 @@ ggplot(aes(num_comp, pca_eigenvalues)) +
   labs(x = "principal component", y = "variance", 
        title = "PCA Scree Plot")
 p6
+## ----
 
 ggsave("figures/04_pca_scree_plot.png", plot = p6, width = 7, height = 5)
 
@@ -33,6 +34,7 @@ p7 <- pca_var %>%
   labs(x = "principal component", y = "variance", 
        title = "PCA Cumulative Variance Explained Plot")
 p7
+## ----
 
 ggsave("figures/04_pca_variance_explained_plot.png", plot = p7, width = 7, 
        height = 5)
@@ -47,12 +49,13 @@ p8 <- expr_pca$x %>% as.data.frame() %>%
   labs(title = "First Two PCA Components for Diabetes Gene Expression", 
        colour = "diabetes type")
 p8
+## ----
 
 ggsave("figures/04_pca_scatter_plot.png", plot = p8, width = 7, height = 5)
 
 # --- t-SNE --------------------------------------------------------------------
 
-## ---- perform-tSNE
+## ---- perform-tsne
 # Set seed for reproducibility
 set.seed(1000)
 
@@ -73,5 +76,6 @@ p9 <- tsne_comp %>% as.data.frame() %>%
   labs(title = "First Two t-SNE Components for Diabetes Gene Expression", 
        colour = "diabetes type", x = "first component", y = "second component")
 p9
+## ----
 
 ggsave("figures/04_tsne_scatter_plot.png", plot = p9, width = 7, height = 5)

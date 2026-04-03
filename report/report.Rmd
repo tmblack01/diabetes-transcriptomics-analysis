@@ -100,3 +100,40 @@ We conclude the exploratory analysis by generating a heat-map of the normalised 
 ```
 
 The fulminant participants appear to have a similar gene expression profile in this heat-map compared to the other group of participants. Sample *GSM1082961* seems to have a substantially different gene expression profile for the top 5 most variable genes compared to all other samples in this study.
+
+# Dimensionality Reduction
+
+In this section, we explore two dimensionality reduction techniques to generate a different representation of the gene expression data with much fewer dimensions. Dimensionality reduction is a common procedure when analysing genomic data to help identify patterns and features that influence certain genes.
+
+## Principal Component Analysis (PCA)
+
+``` {r perform-pca, echo = FALSE}
+```
+
+One of the most prominent approaches to dimensionality reduction is PCA. This transformation is a linear dimensionality reduction technique that aims to find new features that encompasses the most variance from the given data. To inspect how much variance how been captured by each component, we can use scree plots to visualise the variance of each component as a line graph. We also generate a plot of the cumulative variance explained against the number of PCA components to see how much of the variance has been captured over the number of components.
+
+``` {r scree-plot, echo=FALSE, dpi = 400, fig.height = 3.5}
+```
+``` {r var-explained, echo=FALSE, dpi = 400, fig.height = 3.5}
+```
+
+From both the scree plot and variance explained plot, the benefits of adding more component appears to diminish at the fifth component. Using PCA on this dataset, roughly 82\% of the variance can be explained with five principal components, reducing the number of original gene features substantially.
+
+We plot the first two components of the data on a scatter-plot and colour each point with its associated type 1 diabetes group.
+
+``` {r scatterplot-pca, echo=FALSE, dpi = 400, fig.height = 3.7}
+```
+
+The first two PCA components of this dataset does not reveal any obvious clusters. In particular, the diabetes type do not appear to form distinct clusters in this representation.
+
+## t-distributed Stochastic Neighbour Embedding (t-SNE)
+
+``` {r perform-tsne, echo=FALSE}
+```
+
+One of the major drawbacks of PCA is that it is a linear dimensionality reduction technique. For high-dimensional data with more complex structure, it may be more appropriate to utilise a non-linear technique. One of these methods is t-SNE. This probabilistic method generates new components where similar points are close by and dissimilar points are further away in the lower dimensional space with high probability. We will plot the first two t-SNE components of the data on a scatter-plot and colour each point with its associated type 1 diabetes group.
+
+``` {r scatterplot-tsne, echo=FALSE, dpi = 400, fig.height = 3.7}
+```
+
+While the scatter-plot of the points using the t-SNE components appears to be different to the PCA components, there does not appear to be cluster that separates the two diabetes group in the study.
