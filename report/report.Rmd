@@ -137,3 +137,7 @@ One of the major drawbacks of PCA is that it is a linear dimensionality reductio
 ```
 
 While the scatter-plot of the points using the t-SNE components appears to be different to the PCA components, there does not appear to be cluster that separates the two diabetes group in the study.
+
+# Conclusion
+
+This analysis explored a transcriptomic dataset on the study comparing fulminant type 1 diabetes with classical type 1A diabetes from the GEO database. Preprocessing on the metadata and gene expression matrix were performed to restructure the data and handle missing values. The preprocessed data was used for an exploratory analysis to investigate any trends or patterns between gene expressions and attributes of the participants. Finally, dimensionality reduction techniques were applied to the gene expression matrix to identify any clusters that distinguish fulminant type 1 and classical type 1A groups. Limitations to this analysis include the small sample size of this study and the large proportion of genes that had missing values. Future directions for this analysis are exploring alternative techniques to handling missing values, such as imputation methods, and trying other dimensionality reduction techniques.
