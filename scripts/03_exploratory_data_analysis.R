@@ -7,6 +7,7 @@
 top_genes <- expr_matrix_reduced %>% apply(1, sd) %>% 
   sort(decreasing = TRUE) %>% 
   head(5)
+## ----
 
 # --- Box plot -----------------------------------------------------------------
 
@@ -19,6 +20,7 @@ p1 <- combined_data %>% filter(gene %in% names(top_genes)) %>%
   labs(y = "normalised count", 
       title = "Distribution of Normalised Counts for Most Variable Genes")
 p1
+## ----
 
 ggsave("figures/03_boxplot_counts_against_gene.png", plot = p1, width = 7, 
        height = 5)
@@ -27,10 +29,12 @@ ggsave("figures/03_boxplot_counts_against_gene.png", plot = p1, width = 7,
 p2 <- combined_data %>% filter(gene %in% names(top_genes)) %>%
   ggplot(aes(gene, normalised_count, fill = diabetes_type)) +
   geom_boxplot() + theme_light() +
+  scale_x_discrete(guide = guide_axis(angle = 90)) +
   labs(y = "normalised count", 
        title = "Distribution of Normalised Counts for Most Variable Genes, Group by Diabetes Type", 
        fill = "diabetes type")
 p2
+## ----
 
 ggsave("figures/03_boxplot_counts_against_gene_groupby_type.png", plot = p2, 
        width = 8, height = 5)
@@ -44,10 +48,11 @@ p3 <- combined_data %>% filter(gene == names(top_genes)[1]) %>%
   geom_point() + geom_smooth(method = "lm") + theme_light() +
   labs(y = "normalised count", 
        title = "Normalised Counts against Age with Line of Best Fit")
+p3
+## ----
 
 ggsave("figures/03_scatterplot_counts_against_age.png", plot = p3, width = 7, 
        height = 5)
-p3
 
 ## ---- scatterplot-counts-age-with-type
 p4 <- combined_data %>% filter(gene == names(top_genes)[1]) %>%
@@ -57,6 +62,7 @@ p4 <- combined_data %>% filter(gene == names(top_genes)[1]) %>%
        title = "Normalised Counts against Age with Line of Best Fit", 
        colour = "diabetes type")
 p4
+## ----
 
 ggsave("figures/03_scatterplot_counts_against_age_groupby_type.png", plot = p4, 
        width = 7, height = 5)
@@ -73,6 +79,7 @@ p5 <- combined_data %>% filter(gene %in% names(top_genes)) %>%
        fill = "normalised count") + 
   scale_fill_gradient(low="white", high = "#0ABFBC")
 p5
+## ----
 
 ggsave("figures/03_gene_expression_heatmap.png", plot = p5, width = 7, 
        height = 5)

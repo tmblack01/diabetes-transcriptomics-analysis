@@ -62,3 +62,41 @@ Finally, we will generate another dataframe by joining the expression matrix wit
 ```
 
 # Exploratory Data Analysis
+
+Using the preprocessed dataframes, we will conduct an exploratory data analysis to gain initial insights on the data.
+
+## Normalised Counts against Most Variable Genes
+
+The top 5 genes that have the largest variance are selected using the below R code.
+
+```{r get-top-five-genes}
+```
+
+We examine the distributions of normalised counts for the top 5 most variable genes. The below box-plots show the distribution of normalised count for each gene, where the second plot separates the distribution by the two types of diabetes in the dataset.
+
+```{r boxplot-counts-genes, echo=FALSE, dpi = 400, fig.height = 4.3}
+```
+```{r boxplot-counts-genes-with-type, echo=FALSE, fig.width=8, fig.height = 4.3}
+```
+
+The box-plots shows that the distribution of normalised counts have some similar characteristics (ie: median, interquartile range) among the genes considered. An exception to this observation would be the distribution for gene *A_32_P120863* which appears to have a smallest interquantile range, but possesses a large outlier that influences the mean and variance of this distribution significantly. Separating the box-plots by diabetes type shows that the classical type 1A group have a larger variance compared to the fulminant type 1 group.
+
+## Normalised Counts against Age
+
+We plot the the normalised count against the age of the participant. We restrict the data to points that are from the most variable gene in the preprocessed dataset. A line of best fitted with a 95\% confidence band is included to visualise any trends and quantify uncertainty in the estimate line.
+
+```{r scatterplot-counts-age, echo=FALSE, dpi = 400, fig.height = 3.1}
+```
+```{r scatterplot-counts-age-with-type, echo=FALSE, dpi = 400, fig.height = 3.1}
+```
+
+The normalised counts are fairly consistent across the different ages, with the exception of one sample who recorded a substantially large value with an age value of around 49. When the diabetes types are distinguished, we can see that the fulminant type group has a near-zero slope with a small confidence band, whereas the classical type 1A group has a negative slope with a large confidence band, which may be due to the outlier point distorting the line of best fit.
+
+## Normalised Counts across Samples
+
+We conclude the exploratory analysis by generating a heat-map of the normalised counts for each sample, using the top 5 most variable genes. The 5 samples to the left of the plot are the fulminant participants and the 5 samples to the right are the classical type 1A participants.
+
+``` {r heatmap-genes-samples, echo=FALSE, dpi = 400, fig.height = 3.1}
+```
+
+The fulminant participants appear to have a similar gene expression profile in this heat-map compared to the other group of participants. Sample *GSM1082961* seems to have a substantially different gene expression profile for the top 5 most variable genes compared to all other samples in this study.
