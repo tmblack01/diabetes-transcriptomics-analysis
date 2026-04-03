@@ -10,12 +10,55 @@ urlcolor: blue
 ```{r setup, include=FALSE}
 library(knitr)
 opts_chunk$set(warning = FALSE, message = FALSE, cache = FALSE, comment = "#>")
-read_chunk("./scripts/00_setup.R")
-read_chunk("./scripts/01_read_data.R")
-read_chunk("./scripts/02_preprocess_data.R")
-read_chunk("./scripts/03_exploratory_data_analysis.R")
-read_chunk("./scripts/04_dimensionality_reduction.R")
+source("../scripts/00_setup.R")
+source("../scripts/01_read_data.R")
+read_chunk("../scripts/02_preprocess_data.R")
+read_chunk("../scripts/03_exploratory_data_analysis.R")
+read_chunk("../scripts/04_dimensionality_reduction.R")
 ```
 
+# Introduction
 
+The purpose of this repository is to perform a transcriptomic data analysis on the dataset from [Gene Expression Fulminant Type 1 Diabetes vs Classical Type 1A Diabetes](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE44313) from the Gene Expression Omnibus (GEO). 
+The dataset contains an expression matrix of 10 samples and 41,000 genes and metadata about the samples. The goal of this analysis is to find any patterns or clusters and identify any features that may influence the observations.
 
+# Data Preprocessing
+
+## Metadata
+
+We begin this analysis by preprocessing the metadata, containing information about each participant of the trial. The raw metadata contains a total of 40 columns, where some of these attributes appear multiple times. For this analysis, we only keep information about the diabetes type and age. The column are renamed and the age data is reformatted.
+
+```{r preprocess-meta, echo=TRUE}
+```
+
+## Gene Expression Matrix
+
+The *data preprocessing* column of the raw metadata states *"Intensity values for each scanned feature were quantified using Agilent Feature Extraction Software, which performs background subtractions. Normalization was performed using Agilent GeneSpring GX version 11.0.2. (per chip normalization: 75 percentile shift; per gene normalization: median of all samples)"*. This tells us that the data in the given gene expression matrix is already normalised. We can verify that preprocessing has already been performed by inspecting the summary statistics of the gene expression matrix.
+
+```{r summary-expression}
+```
+
+Given the large number of genes, it is common to remove genes that have low expression values across samples. For each gene, we sum the values across all samples and only keep the gene if the resulting sum is above a threshold of 0.5. After filtering the genes, the matrix is reduced from 41,000 samples to 14,101 genes.
+
+```{r remove-low-expression}
+```
+
+The next preprocessing step is to handle missing values. The below table summarises the frequency of missing values for each gene.
+
+```{r check-na}
+```
+
+The table shows that 20,998 genes have no missing values across the samples. For this analysis, we will only focus on the gene that have no missing values.
+
+```{r drop-na}
+```
+
+Finally, we will generate another dataframe by joining the expression matrix with the metadata by sample. Before we perform the join operation, we need to pivot the expression matrix into long form such that the samples are another attribute in the matrix.
+
+```{r pivot-longer}
+```
+
+``` {r combine-expression-meta}
+```
+
+# Exploratory Data Analysis
